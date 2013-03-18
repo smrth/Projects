@@ -1,0 +1,92 @@
+#include <iostream>
+#include <cmath>
+#include "multisprite.h"
+#include "gamedata.h"
+
+void MultiframeSprite::advanceFrame(Uint32 ticks) {
+  float ms = 1000.0/frameInterval;
+  dt += ticks;
+  int df = dt / ms;
+  dt -= df * ms;
+  currentFrame = (currentFrame + df) % numberOfFrames;
+}
+
+MultiframeSprite::MultiframeSprite(const Vector2f& pos, 
+                                   const Vector2f& vel, 
+               const string& n, const std::vector<Frame* > & fms,const int frameNumber,const int frameInterval) :
+  Drawable(pos, vel, vel), 
+  gdata( Gamedata::getInstance() ),
+  name(n),
+  frames(fms),
+  dt(0),
+  currentFrame(0),
+  numberOfFrames( frameNumber ),
+  frameInterval( frameInterval )
+{ }
+
+MultiframeSprite::MultiframeSprite(const MultiframeSprite& s) :
+  Drawable(s.getPosition(), s.getVelocity(), s.getMaxVelocity()), 
+  gdata( Gamedata::getInstance() ),
+  name( s.getName() ),
+  frames(s.frames),
+  dt(s.dt),
+  currentFrame(s.currentFrame),
+  numberOfFrames( s.getnumberofFrame()),
+  frameInterval( s.getframeInterval() )
+  { }
+
+/*MultiframeSprite& MultiframeSprite::operator=(const MultiframeSprite& rhs) {
+  setName( rhs.getName() );
+  setPosition(rhs.getPosition());
+  setVelocity(rhs.getVelocity());
+  setMaxVelocity(rhs.getMaxVelocity());
+  setcurrentFrame(rhs.getcurrentFrame());
+  setnumberofFrame(rhs.getnumberofFrame());
+  setframeInterval(rhs.getframeInterval());
+  setdt(rhs.getdt());
+  setFrame(rhs.frames);
+  return *this;
+} */
+
+void MultiframeSprite::draw() const { 
+  Uint32 x = static_cast<Uint32>(X());
+  Uint32 y = static_cast<Uint32>(Y());
+  frames[currentFrame]->draw(x, y);
+}
+
+void MultiframeSprite::update(Uint32 ticks) { 
+  advanceFrame(ticks);
+  float incr = velocityY() * static_cast<float>(ticks) * 0.001;
+  Y( Y()+incr );
+  float height = static_cast<float>(frames[currentFrame]->getHeight());
+  if ( Y() < 0) {
+    velocityY( abs( velocityY() ) );
+  }
+  if ( Y() > Gamedata::getInstance()->getXmlInt("worldHeight")-height) {
+    velocityY( -abs( velocityY() ) );
+  }
+
+  incr = velocityX() * static_cast<float>(ticks) * 0.001;
+  X( X()+incr );
+  float width = static_cast<float>(frames[currentFrame]->getWidth());
+  if ( X() + width < 0) {
+    X( Gamedata::getInstance()->getXmlInt("worldWidth") );
+  }
+  if ( X() > Gamedata::getInstance()->getXmlInt("worldWidth") ) {
+    X( -width );
+  }
+}
+
+unsigned MultiframeSprite::getPixel(Uint32 i, Uint32 j) const { 
+  Uint32 x = static_cast<Uint32>(X());
+  Uint32 y = static_cast<Uint32>(Y());
+  x = i - x;
+  y = j - y;
+  Uint32 *pixels = static_cast<Uint32 *>(frames[0]->getSurface()->pixels);
+  return pixels[ ( y * frames[0]->getWidth() ) + x ];
+}
+
+
+int MultiframeSprite::getDistance(const MultiframeSprite *obj) const { 
+  return hypot(X()-obj->X(), Y()-obj->Y());
+}

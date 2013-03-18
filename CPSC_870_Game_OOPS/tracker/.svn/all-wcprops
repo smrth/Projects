@@ -1,0 +1,269 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker
+END
+gamedata.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/gamedata.h
+END
+parseLsysXML.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/parseLsysXML.h
+END
+sprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/sprite.h
+END
+manager.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/manager.h
+END
+viewport.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/viewport.cpp
+END
+explodingSprite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/VSELLAM_870/!svn/ver/5/p3/tracker/explodingSprite.cpp
+END
+framefactory.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/framefactory.cpp
+END
+collisionStrategy.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/collisionStrategy.h
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/main.cpp
+END
+multisprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/multisprite.h
+END
+drawable.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/drawable.h
+END
+frame.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/frame.cpp
+END
+vector2f.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/vector2f.cpp
+END
+clock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/clock.cpp
+END
+world.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/world.h
+END
+lsystemSprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/lsystemSprite.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/Makefile
+END
+sound.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/sound.h
+END
+aaline.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/aaline.h
+END
+parseXML.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/parseXML.h
+END
+lsystem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/lsystem.cpp
+END
+player.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/player.h
+END
+gamedata.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/gamedata.cpp
+END
+parseLsysXML.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/parseLsysXML.cpp
+END
+sprite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/sprite.cpp
+END
+ioManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/ioManager.h
+END
+manager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repos/VSELLAM_870/!svn/ver/5/p3/tracker/manager.cpp
+END
+factory.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/factory.h
+END
+collisionStrategy.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/collisionStrategy.cpp
+END
+multisprite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/multisprite.cpp
+END
+viewport.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/viewport.h
+END
+explodingSprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/explodingSprite.h
+END
+framefactory.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/framefactory.h
+END
+lsystemSprite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/lsystemSprite.cpp
+END
+world.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/world.cpp
+END
+sound.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/sound.cpp
+END
+aaline.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/aaline.cpp
+END
+parseXML.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/parseXML.cpp
+END
+player.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/4/p3/tracker/player.cpp
+END
+frame.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/frame.h
+END
+vector2f.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/vector2f.h
+END
+clock.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/clock.h
+END
+ioManager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/ioManager.cpp
+END
+lsystem.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/VSELLAM_870/!svn/ver/2/p3/tracker/lsystem.h
+END

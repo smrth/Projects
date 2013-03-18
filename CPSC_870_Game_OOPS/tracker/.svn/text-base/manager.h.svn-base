@@ -1,0 +1,62 @@
+#include <SDL.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <list>
+
+#include "ioManager.h"
+#include "clock.h"
+#include "sound.h"
+#include "gamedata.h"
+#include "sprite.h"
+#include "world.h"
+#include "viewport.h"
+#include "multisprite.h"
+//#include "framefactory.h"
+#include "collisionStrategy.h"
+#include "player.h"
+#include "explodingSprite.h"
+
+class Manager {
+public:
+  Manager ();
+  ~Manager ();
+  void play();
+
+private:
+  const bool env;
+  const Gamedata* gdata;
+  const IOManager& io;
+  Clock& clock;
+  SDLSound sound;
+  frameFactory& sprites;
+
+  SDL_Surface *screen;
+  World backWorld;
+  World frontWorld;
+  Viewport& viewport;
+  
+  std::vector<MultiframeSprite *> orbs;
+  std::vector<const MultiframeSprite *> player_track;
+
+
+  Player player;
+  CollisionStrategy *collisionStrategy;
+  bool collisionFound;
+  bool orbExploded;
+  bool cheat;
+  
+  unsigned currentOrb;
+  unsigned help_key;
+
+  void makeOrb(const string &);
+  void addPlayer(const MultiframeSprite*);
+  void makelsystem();
+  
+  void draw() const;
+  void update(Uint32);
+  void checkForCollisions();
+  Manager(const Manager&);
+  Manager& operator=(const Manager&);
+  void explodecheck();
+};

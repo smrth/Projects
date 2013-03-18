@@ -1,0 +1,329 @@
+#include <cmath>
+#include "manager.h"
+#include "menuManager.h"
+
+Manager::~Manager() { 
+  // These deletions eliminate "definitely lost" and
+  // "still reachable"s in Valgrind.
+  delete collisionStrategy;
+  for (unsigned i = 0; i < unsigned(orbs.size()); ++i) {
+    delete orbs[i];
+  }
+  SDL_FreeSurface(screen);
+  delete Gamedata::getInstance();
+}
+
+Manager::Manager() :
+  env( SDL_putenv(const_cast<char*>("SDL_VIDEO_CENTERED=center")) ),
+  gdata( Gamedata::getInstance() ),
+  io( IOManager::getInstance() ),
+  clock( Clock::getInstance() ),
+  sound(),
+  sprites( frameFactory::getInstance() ),
+  screen( io.getScreen() ),
+  backWorld(frameFactory::getInstance().setFrame("background")[0], 2),
+  frontWorld(frameFactory::getInstance().setFrame("foreground")[0], 1),
+  viewport( Viewport::getInstance() ),
+  orbs(),
+  expoorbs(),
+  player_track(),
+  bullet(),
+  player(Vector2f(gdata->getXmlInt("ninjaStandSpritePositionX"),gdata->getXmlInt("ninjaStandSpritePositionY")), 
+          Vector2f(0, 0),"ninjaStand" ,frameFactory::getInstance().setFrame("ninjaStand"),gdata->getXmlInt("ninjaStandSpriteFrameNumber"),gdata->getXmlInt("ninjaStandSpriteFrameInterval")),
+  collisionStrategy( NULL ),
+  collisionFound( false ) ,
+  collisionLFound(false),
+  orbExploded(false),
+  cheat(false),
+  currentOrb(0),
+  help_key(0)
+{
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    throw string("Unable to initialize SDL: ");
+  }
+  collisionStrategy = new PerPixelCollisionStrategy();
+  //makeOrb("ninja");
+  //makeOrb("ninjaMove");
+  viewport.setObjectToTrack(player.getSprite());
+  addPlayer(player.getSprite());
+  makeBomb("ninjaMove");
+  //makeOrb("ninjaMove");
+  std::cout<<"lsystem created"<<std::endl;
+  atexit(SDL_Quit);
+}
+
+void Manager::addPlayer(const MultiframeSprite* sprite)
+{
+  player_track.push_back(sprite);
+}
+
+
+void Manager::makeOrb(const string & s){
+for (unsigned int i=0;i<unsigned(gdata->getXmlInt(s+"Number"));i++){
+	MultiframeSprite * spr=new MultiframeSprite(Vector2f(gdata->getXmlInt(s+"SpritePositionX"), 
+                 gdata->getXmlInt(s+"SpritePositionY")), 
+        Vector2f(gdata->getXmlInt(s+"SpriteVelocityX"),
+                 gdata->getXmlInt(s+"SpriteVelocityY")), s, 
+		 frameFactory::getInstance().setFrame(s),
+		 gdata->getXmlInt(s+"SpriteFrameNumber"),
+		 gdata->getXmlInt(s+"SpriteFrameInterval"));
+  	orbs.push_back(spr);
+  }
+
+}
+
+void Manager::makelsystem(){
+for (unsigned int i=0;i<unsigned(gdata->getXmlInt("lsystemNumber"));i++){
+  	MultiframeSprite *spr=new MultiframeSprite(Vector2f(rand()%gdata->getXmlInt("worldWidth"), 
+                 rand()%gdata->getXmlInt("worldHeight")), 
+        Vector2f(gdata->getXmlInt("lsystemSpriteVelocityX"),
+                 rand()%gdata->getXmlInt("lsystemSpriteVelocityY")), "lsystem", 
+		 frameFactory::getInstance().getLsystemFrame("lsystem"),
+		 gdata->getXmlInt("lsystemSpriteFrameNumber"),
+		 gdata->getXmlInt("lsystemSpriteFrameInterval"));
+	orbs.push_back(spr);
+  }
+}
+void Manager::makeBomb(const string & s){
+for (unsigned int i=0;i<unsigned(gdata->getXmlInt(s+"Number"));i++){
+	MultiframeSprite * spr=new MultiframeSprite(Vector2f(rand()%gdata->getXmlInt("worldWidth"), 
+                 rand()%gdata->getXmlInt("worldHeight")), 
+        Vector2f(gdata->getXmlInt(s+"SpriteVelocityX"),
+                 rand()%gdata->getXmlInt(s+"SpriteVelocityY")), s, 
+		 frameFactory::getInstance().setFrame(s),
+		 gdata->getXmlInt(s+"SpriteFrameNumber"),
+		 gdata->getXmlInt(s+"SpriteFrameInterval"));
+  	orbs.push_back(spr);
+  }
+
+}
+
+void Manager::makebullet()
+{
+    bullet.push_back(new Bullet(Vector2f(player.getSprite()->X(),player.getSprite()->Y()), 
+          Vector2f(250, 0),"bullet" ,frameFactory::getInstance().setFrame("bullet"),gdata->getXmlInt("bulletSpriteFrameNumber"),gdata->getXmlInt("bulletSpriteFrameInterval")));
+}
+
+
+void Manager::checkForCollisions() {
+  collisionFound = false;
+  std::vector<MultiframeSprite *>::const_iterator orb = orbs.begin();
+  while ( orb != orbs.end() ) {
+    if ( collisionStrategy->execute(*(player.getSprite()), *(*orb)) ) {
+      collisionFound = true;
+      break;
+    }
+    ++orb;
+  }
+}
+
+void Manager::checkForLCollisions() {
+  collisionLFound = false;
+  
+   std::vector<MultiframeSprite *>::iterator orb=orbs.begin();
+  std::vector<Bullet *>::iterator bull=bullet.begin();
+  while(bull!=bullet.end()){
+	if((((*bull)->calulateDistance())*0.001)>2){
+	  delete (*bull);
+	  bull=bullet.erase(bull);
+	  if(bull==bullet.end()){break;}
+	}
+	while(orb!=orbs.end()){
+	  if(orb==orbs.end()){break;}
+		if(collisionStrategy->execute(*(*bull)->getSprite(),*(*orb))) {
+		    collisionLFound=true;
+		    if ((dynamic_cast<MultiframeSprite*>(*orb))!=0) {
+		    //MultiframeSprite *temp1 = const_cast <MultiframeSprite*> ((*bull)->getSprite());
+		    //MultiframeSprite *orb2=new ExplodingSprite(*temp1);
+		    MultiframeSprite *temp = static_cast <MultiframeSprite*> (*orb);
+		    MultiframeSprite *orb1=new ExplodingSprite(*temp);
+		    //expoorbs.push_back(orb2);
+		    expoorbs.push_back(orb1);
+		    //delete temp1;
+		    //bull=bullet.erase(bull);
+		    delete temp; 
+		    orb=orbs.erase(orb);
+		    //if(orbs.size()==0){ break; }
+		    //if(bullet.size()==0){ break; }
+		    }
+	    
+	  }
+	  //if(orb==orbs.end()){break;}
+	 else{++orb;}
+    }
+++bull;
+  }
+
+}
+
+void Manager::explodecheck()
+{
+  if(collisionFound == true && cheat != true)
+  {
+  if (!orbExploded) {
+    orbExploded = true;
+    MultiframeSprite *temp = const_cast<MultiframeSprite *>(player.getSprite());
+    
+    player.setSprite(new ExplodingSprite(*(player.getSprite())));
+    delete temp;
+  }
+  
+}
+  if ( orbExploded ) {
+      if ( static_cast<ExplodingSprite*>(const_cast<MultiframeSprite*>(player.getSprite()))->chunkCount() == 0 ) {
+	sound[0];
+        Vector2f pos = player.getSprite()->getPosition();
+	Vector2f vel=player.getSprite()->getVelocity();
+	//delete player.getSprite();
+	MultiframeSprite * mf=new MultiframeSprite(
+          pos,vel,
+          "ninjaStand", frameFactory::getInstance().setFrame("ninjaStand"),3,3);
+        player.setSprite(mf);
+        orbExploded = false;
+	player.decrease_life();
+	viewport.setObjectToTrack(player.getSprite());
+      }
+    }	
+}
+
+void Manager::draw() const {
+  backWorld.draw();
+  frontWorld.draw();
+  player.draw();
+  io.printMessageAt("Help (F1)", 800,10);
+  io.printMessageAt("Mute (m)", 800,50);
+  io.printMessageValueAt("Life :",int(player.getLife()),800,30);
+  if(help_key==2){
+   
+   io.printMessageAt("HELP MENU", 300,30);
+   io.printMessageAt("Current orb Name: "+player_track[currentOrb]->getName(),250,50);
+   io.printMessageAt("Controls:",250,100);
+   //io.printMessageAt("UP Arrow -> Move Up",250,100);
+   //io.printMessageAt("DOWN Arrow -> Move Down",250,125);
+   io.printMessageAt("LEFT Arrow -> Move Left",250,125);
+   io.printMessageAt("RIGHT Arrow -> Move Right",250,150);
+   io.printMessageAt("Survice from the enemy bomb.",250,175);
+   io.printMessageAt("Try to be away from bomb and reach end to fight for queen.",250,200);
+   io.printMessageAt("HIT F1 or p TO START",250,250);
+   io.printMessageAt("K -> Cheat",250,300);
+   
+  }
+  if(player.getLife()==0){
+    io.printMessageAt("GAME OVER",Gamedata::getInstance()->getXmlInt("viewWidth")/2,Gamedata::getInstance()->getXmlInt("viewHeight")/2);
+    clock.pause();
+  }
+  std::vector<MultiframeSprite*>::const_iterator drawIt = orbs.begin();
+    while ( drawIt != orbs.end() ) {
+      (*drawIt)->draw();
+      ++drawIt;
+    }
+    drawIt = expoorbs.begin();
+    while ( drawIt != expoorbs.end() ) {
+      (*drawIt)->draw();
+      ++drawIt;
+    }
+  for (unsigned int i=0;i<bullet.size();++i){
+    bullet[i]->draw();
+  }
+  if (collisionFound) {
+    io.printMessageAt("Oops, collision!", 50, 30);
+  }
+  else {
+    io.printMessageAt("No Collision.", 50, 30);
+  }
+
+}
+
+void Manager::update(Uint32 ticks) {
+  viewport.update();
+  backWorld.update();
+  frontWorld.update();
+  player.update(ticks);
+  std::vector<MultiframeSprite *>::iterator updateIt = orbs.begin();
+    while ( updateIt != orbs.end() ) {
+      (*updateIt)->update(ticks);
+      ++updateIt;
+    }
+    updateIt = expoorbs.begin();
+    while ( updateIt != expoorbs.end() ) {
+      (*updateIt)->update(ticks);
+      if ( static_cast<ExplodingSprite*>(*updateIt)->chunkCount() == 0 ) {
+        updateIt = expoorbs.erase( updateIt );
+      }
+      else ++updateIt;
+    }
+  std::vector<Bullet *>::iterator ptr=bullet.begin();
+  while(ptr!=bullet.end()){
+    (*(*ptr)).update(ticks);
+    ++ptr;
+    
+  }
+}
+
+void Manager::play() {
+  SDL_Event event;
+  MenuManager menuMan;
+  bool done = false;
+  done=menuMan.play();
+  bool keyCatch = false;
+  while ( not done ) {
+    draw();
+    SDL_Flip(screen);
+    clock.unpause();
+    Uint32 ticks = clock.getElapsedTicks();
+    update(ticks);
+    player.stop();
+    checkForCollisions();
+    checkForLCollisions();
+    explodecheck();
+    SDL_PollEvent(&event);
+    if (event.type ==  SDL_QUIT) { break; }
+    if(event.type == SDL_KEYUP) { keyCatch = false; player.stop(); }
+    if(event.type == SDL_KEYDOWN) {
+      switch ( event.key.keysym.sym ) {
+        case SDLK_ESCAPE : {
+	  if (!keyCatch) {
+            keyCatch = true;
+	  clock.pause();
+	  done=menuMan.play();
+	  }
+	  break;
+	}
+        case SDLK_q      : done = true; break;
+        case SDLK_t :
+          if ( !keyCatch ) {
+            keyCatch = true;
+            currentOrb = (currentOrb+1) % player_track.size(); 
+            viewport.setObjectToTrack(player_track[currentOrb]);
+          }
+          break;
+	  case SDLK_f: {
+          if (!keyCatch) {
+            keyCatch = true;
+            makebullet();
+          }
+          break;
+        }
+	  case SDLK_k: {
+          if (!keyCatch) {
+            keyCatch = true;
+            cheat=true;
+          }
+          break;
+        }
+	case SDLK_m: {
+          if (!keyCatch) {
+            keyCatch = true;
+            sound.toggleMusic();
+          }
+          break;
+	}
+        case SDLK_LEFT  : { player.left(); break; }
+        case SDLK_RIGHT : { player.right(); break; }
+        case SDLK_UP    : { player.up(); break; }
+        case SDLK_DOWN  : { player.down(); break; }
+        default          : break;
+      }
+    }
+  }
+}

@@ -1,0 +1,210 @@
+<?xml version = "1.0"?>
+
+<GameData>
+
+<view>
+  <viewWidth>954</viewWidth>
+  <viewHeight>480</viewHeight>
+</view>
+
+<screen>
+  <worldWidth>20000</worldWidth>
+  <worldHeight>480</worldHeight>
+</screen>
+
+<Font name="font">
+  <font>font/pirulen.ttf</font>
+  <fontSize>14</fontSize>
+</Font>
+<maxStringSize>50</maxStringSize>
+
+ <maxLife>1</maxLife>
+
+
+<background>
+  <backgroundSpriteFile>images/bg.png</backgroundSpriteFile>
+  <backgroundSpriteFrameNumber>1</backgroundSpriteFrameNumber>
+  <backgroundSpriteFrameInterval>1</backgroundSpriteFrameInterval>
+  <backgroundSpriteWidth>954</backgroundSpriteWidth>
+  <backgroundSpriteHeight>480</backgroundSpriteHeight>
+  <backgroundSpritesrcX>0</backgroundSpritesrcX>
+  <backgroundSpritesrcY>0</backgroundSpritesrcY>
+  <backgroundRed>190</backgroundRed>
+  <backgroundGreen>190</backgroundGreen>
+  <backgroundBlue>190</backgroundBlue>
+</background>
+
+<foreground>
+  <foregroundSpriteFile>images/fg.png</foregroundSpriteFile>
+  <foregroundSpriteFrameNumber>1</foregroundSpriteFrameNumber>
+  <foregroundSpriteFrameInterval>1</foregroundSpriteFrameInterval>
+  <foregroundSpriteWidth>954</foregroundSpriteWidth>
+  <foregroundSpriteHeight>480</foregroundSpriteHeight>
+  <foregroundSpritesrcX>0</foregroundSpritesrcX>
+  <foregroundSpritesrcY>0</foregroundSpritesrcY>
+</foreground>
+
+<music>
+  <musicFile>sound/1dragon.mp3</musicFile>
+  <musicaudioRate>22050</musicaudioRate>
+  <musicaudioChannels>2</musicaudioChannels>
+  <musicaudioBuffers>4096</musicaudioBuffers>
+</music>
+
+<sounds>
+  <soundFile1></soundFile1>
+  <soundFile2></soundFile2>
+  <soundFile3></soundFile3>
+  <soundFile4></soundFile4>
+</sounds>
+
+<lsystem>
+  <lsystemSpriteFile>xmlSpec/thing.xml</lsystemSpriteFile>
+  <lsystemNumber>100</lsystemNumber>
+  <lsystemSpriteFrameNumber>1</lsystemSpriteFrameNumber>
+  <lsystemSpriteFrameInterval>1</lsystemSpriteFrameInterval>
+  <lsystemSpritesrcX>0</lsystemSpritesrcX>
+  <lsystemSpritesrcY>0</lsystemSpritesrcY>
+  <lsystemSpriteWidth>64</lsystemSpriteWidth>
+  <lsystemSpriteHeight>64</lsystemSpriteHeight>
+  <lsystemSpritePositionX>250</lsystemSpritePositionX>
+  <lsystemSpritePositionY>325</lsystemSpritePositionY>
+  <lsystemSpriteVelocityX>-100</lsystemSpriteVelocityX>
+  <lsystemSpriteVelocityY>250</lsystemSpriteVelocityY>
+  <lsystemSpriteMaxVelocityX>-100</lsystemSpriteMaxVelocityX>
+  <lsystemSpriteMaxVelocityY>250</lsystemSpriteMaxVelocityY>
+  <lsystemSpriteTransparency>true</lsystemSpriteTransparency>
+</lsystem>
+
+<ninjaStandSprite>
+  <ninjaStandSpriteFile>images/ninja.png</ninjaStandSpriteFile>
+  <ninjaStandNumber>1</ninjaStandNumber>
+  <ninjaStandSpriteFrameNumber>7</ninjaStandSpriteFrameNumber>
+  <ninjaStandSpriteFrameInterval>10</ninjaStandSpriteFrameInterval>
+  <ninjaStandSpriteWidth>560</ninjaStandSpriteWidth>
+  <ninjaStandSpriteHeight>92</ninjaStandSpriteHeight>
+  <ninjaStandSpritesrcX>0</ninjaStandSpritesrcX>
+  <ninjaStandSpritesrcY>0</ninjaStandSpritesrcY>
+  <ninjaStandSpritePositionX>10</ninjaStandSpritePositionX>
+  <ninjaStandSpritePositionY>325</ninjaStandSpritePositionY>
+  <ninjaStandSpriteVelocityX>0</ninjaStandSpriteVelocityX>
+  <ninjaStandSpriteVelocityY>0</ninjaStandSpriteVelocityY>
+  <ninjaStandSpriteMaxVelocityX>0</ninjaStandSpriteMaxVelocityX>
+  <ninjaStandSpriteMaxVelocityY>0</ninjaStandSpriteMaxVelocityY>
+  <ninjaStandChunkMaxXspeed>250</ninjaStandChunkMaxXspeed>
+  <ninjaStandChunkMaxYspeed>250</ninjaStandChunkMaxYspeed>
+  <ninjaStandChunkXspeed>200</ninjaStandChunkXspeed>
+  <ninjaStandChunkYspeed>200</ninjaStandChunkYspeed>
+  <ninjaStandChunkSize>15</ninjaStandChunkSize>
+  <ninjaStandChunkDistance>50</ninjaStandChunkDistance>
+  <ninjaStandChunkX>10</ninjaStandChunkX>
+  <ninjaStandChunkY>10</ninjaStandChunkY>
+  <ninjaStandWidth>32</ninjaStandWidth>
+  <ninjaStandHeight>32</ninjaStandHeight>
+</ninjaStandSprite>
+
+<ninjaMoveSprite>
+  <ninjaMoveSpriteFile>images/villan.png</ninjaMoveSpriteFile>
+  <ninjaMoveNumber>1</ninjaMoveNumber>
+  <ninjaMoveSpriteFrameNumber>3</ninjaMoveSpriteFrameNumber>
+  <ninjaMoveSpriteFrameInterval>5</ninjaMoveSpriteFrameInterval>
+  <ninjaMoveSpriteWidth>300</ninjaMoveSpriteWidth>
+  <ninjaMoveSpriteHeight>92</ninjaMoveSpriteHeight>
+  <ninjaMoveSpritesrcX>0</ninjaMoveSpritesrcX>
+  <ninjaMoveSpritesrcY>0</ninjaMoveSpritesrcY>
+  <ninjaMoveSpritePositionX>450</ninjaMoveSpritePositionX>
+  <ninjaMoveSpritePositionY>325</ninjaMoveSpritePositionY>
+  <ninjaMoveSpriteVelocityX>100</ninjaMoveSpriteVelocityX>
+  <ninjaMoveSpriteVelocityY>0</ninjaMoveSpriteVelocityY>
+  <ninjaMoveSpriteMaxVelocityX>0</ninjaMoveSpriteMaxVelocityX>
+  <ninjaMoveSpriteMaxVelocityY>0</ninjaMoveSpriteMaxVelocityY>
+  <ninjaMoveChunkMaxXspeed>250</ninjaMoveChunkMaxXspeed>
+  <ninjaMoveChunkMaxYspeed>250</ninjaMoveChunkMaxYspeed>
+  <ninjaMoveChunkXspeed>200</ninjaMoveChunkXspeed>
+  <ninjaMoveChunkYspeed>200</ninjaMoveChunkYspeed>
+  <ninjaMoveChunkSize>15</ninjaMoveChunkSize>
+  <ninjaMoveChunkDistance>50</ninjaMoveChunkDistance>
+  <ninjaMoveChunkX>10</ninjaMoveChunkX>
+  <ninjaMoveChunkY>10</ninjaMoveChunkY>
+  <ninjaMoveWidth>32</ninjaMoveWidth>
+  <ninjaMoveHeight>32</ninjaMoveHeight>
+</ninjaMoveSprite>
+
+<bulletSprite>
+  <bulletSpriteFile>images/redball.bmp</bulletSpriteFile>
+  <bulletNumber>1</bulletNumber>
+  <bulletSpriteFrameNumber>1</bulletSpriteFrameNumber>
+  <bulletSpriteFrameInterval>10</bulletSpriteFrameInterval>
+  <bulletSpriteWidth>32</bulletSpriteWidth>
+  <bulletSpriteHeight>32</bulletSpriteHeight>
+  <bulletSpritesrcX>0</bulletSpritesrcX>
+  <bulletSpritesrcY>0</bulletSpritesrcY>
+  <bulletSpritePositionX>450</bulletSpritePositionX>
+  <bulletSpritePositionY>325</bulletSpritePositionY>
+  <bulletSpriteVelocityX>250</bulletSpriteVelocityX>
+  <bulletSpriteVelocityY>0</bulletSpriteVelocityY>
+  <bulletSpriteMaxVelocityX>0</bulletSpriteMaxVelocityX>
+  <bulletSpriteMaxVelocityY>0</bulletSpriteMaxVelocityY>
+  <bulletChunkMaxXspeed>250</bulletChunkMaxXspeed>
+  <bulletChunkMaxYspeed>250</bulletChunkMaxYspeed>
+  <bulletChunkXspeed>200</bulletChunkXspeed>
+  <bulletChunkYspeed>200</bulletChunkYspeed>
+  <bulletChunkSize>15</bulletChunkSize>
+  <bulletChunkDistance>50</bulletChunkDistance>
+  <bulletChunkX>10</bulletChunkX>
+  <bulletChunkY>10</bulletChunkY>
+  <bulletWidth>32</bulletWidth>
+  <bulletHeight>32</bulletHeight>
+</bulletSprite>
+
+
+<ninjaSprite>
+  <ninjaSpriteFile>images/ninja_stand.png</ninjaSpriteFile>
+  <ninjaNumber>1</ninjaNumber>
+  <ninjaSpriteFrameNumber>3</ninjaSpriteFrameNumber>
+  <ninjaSpriteFrameInterval>5</ninjaSpriteFrameInterval>
+  <ninjaSpriteWidth>240</ninjaSpriteWidth>
+  <ninjaSpriteHeight>92</ninjaSpriteHeight>
+  <ninjaSpritesrcX>0</ninjaSpritesrcX>
+  <ninjaSpritesrcY>0</ninjaSpritesrcY>
+  <ninjaSpritePositionX>100</ninjaSpritePositionX>
+  <ninjaSpritePositionY>315</ninjaSpritePositionY>
+  <ninjaSpriteVelocityX>0</ninjaSpriteVelocityX>
+  <ninjaSpriteVelocityY>0</ninjaSpriteVelocityY>
+  <ninjaSpriteMaxVelocityX>0</ninjaSpriteMaxVelocityX>
+  <ninjaSpriteMaxVelocityY>0</ninjaSpriteMaxVelocityY>
+</ninjaSprite>
+
+<ninjaChunk>
+  <ninjaChunkFile>images/blue1.png</ninjaChunkFile>
+  <ninjaChunkSrcX>0</ninjaChunkSrcX>
+  <ninjaChunkSrcY>0</ninjaChunkSrcY>
+  <ninjaChunkWidth>32</ninjaChunkWidth>
+  <ninjaChunkHeight>32</ninjaChunkHeight>
+  <ninjaChunkLoc ninjaChunkX="10" ninjaChunkY="10"/>
+  <ninjaChunkSpeed ninjaChunkXspeed="250" ninjaChunkYspeed="250"/>
+  <ninjaChunkMaxSpeed ninjaChunkMaxXspeed="350" ninjaChunkMaxYspeed="300"/>
+  <ninjaChunkTransparency>true</ninjaChunkTransparency>
+  <ninjaChunkSize>9</ninjaChunkSize>
+  <ninjaChunkDistance>50</ninjaChunkDistance>
+</ninjaChunk>
+
+<redorb>
+  <redorbSpriteFile>images/orange1.png</redorbSpriteFile>
+  <redorbNumber>1</redorbNumber>
+  <redorbSpriteFrameNumber>4</redorbSpriteFrameNumber>
+  <redorbSpriteFrameInterval>3</redorbSpriteFrameInterval>
+  <redorbSpriteWidth>320</redorbSpriteWidth>
+  <redorbSpriteHeight>92</redorbSpriteHeight>
+  <redorbSpritesrcX>0</redorbSpritesrcX>
+  <redorbSpritesrcY>0</redorbSpritesrcY>
+  <redorbSpritePositionX>200</redorbSpritePositionX>
+  <redorbSpritePositionY>100</redorbSpritePositionY>
+  <redorbSpriteVelocityX>100</redorbSpriteVelocityX>
+  <redorbSpriteVelocityY>0</redorbSpriteVelocityY>
+  <redorbSpriteMaxVelocityX>100</redorbSpriteMaxVelocityX>
+  <redorbSpriteMaxVelocityY>0</redorbSpriteMaxVelocityY>
+</redorb>
+
+
+</GameData>

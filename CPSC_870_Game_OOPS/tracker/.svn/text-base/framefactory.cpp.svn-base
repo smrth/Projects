@@ -1,0 +1,123 @@
+#include <iostream>
+#include <iomanip>
+#include "framefactory.h"
+
+
+frameFactory& frameFactory::getInstance() {
+  static frameFactory ff;
+  return ff;
+}
+
+frameFactory::frameFactory() :
+  gdata( Gamedata::getInstance() ),
+  io( IOManager::getInstance() ),
+  surfaceMap(),
+  spriteFrame(),
+  frameMap(),
+  lsysFrames(),
+  lsystems()
+  {     
+  }
+ 
+
+frameFactory::~frameFactory(){
+	while(!lsystems.empty()){
+		std::map<string,LSystem * >::iterator itl = lsystems.begin();
+		//delete it->second;
+		lsystems.erase(itl);
+	}
+	while(!lsysFrames.empty()){
+		std::map<string,std::vector<Frame*> >::iterator itlf = lsysFrames.begin();
+		//delete it->second;
+		lsysFrames.erase(itlf);
+	}
+	while(!frameMap.empty()){
+		std::map<string,std::vector<Frame*> >::iterator itfm = frameMap.begin();
+		//delete it->second;
+		frameMap.erase(itfm);
+	}
+	for (unsigned i = 0; i < unsigned(spriteFrame.size()); ++i) {
+		delete spriteFrame[i];
+	}
+	while(!surfaceMap.empty()){
+		std::map<string,SDL_Surface *>::iterator it = surfaceMap.begin();
+		//delete it->second;
+		surfaceMap.erase(it);
+	}
+}
+
+void frameFactory::setSurface(const string & s,const string & filename) { 
+  surfaceMap[s]=io.loadAndSet(filename+".png", true);
+  //return surfaceMap[s]; 
+}
+
+SDL_Surface* frameFactory::getSurface(const string & s) { 
+	if(surfaceMap.find(s)==surfaceMap.end()){
+		surfaceMap[s]=io.loadAndSet(gdata->getXmlStr(s+"SpriteFile"), true);
+		//std::cout << s+" Surface created" << endl;
+	}
+	return surfaceMap[s]; 
+}
+
+std::vector<Frame*>& frameFactory::setFrame(const string& s,unsigned start,unsigned end) { 
+	if(end==0){end=Gamedata::getInstance()->getXmlInt(s+"SpriteFrameNumber");}
+	if(frameMap.find(s)==frameMap.end()){
+		for (unsigned int i=start;i<unsigned(end);i++)
+		  {
+		  unsigned frameX = i * (gdata->getXmlInt(s+"SpriteWidth")/gdata->getXmlInt(s+"SpriteFrameNumber")) + gdata->getXmlInt(s+"SpritesrcX");
+		   	spriteFrame.push_back(new Frame(getSurface(s),
+				(gdata->getXmlInt(s+"SpriteWidth")/gdata->getXmlInt(s+"SpriteFrameNumber")), 
+				gdata->getXmlInt(s+"SpriteHeight"), 
+				frameX, 
+				gdata->getXmlInt(s+"SpritesrcY")));
+		  }
+	frameMap[s]=spriteFrame;
+	spriteFrame.clear();
+	//std::cout << s+" frame created" << endl;
+	}
+	return frameMap[s];
+}
+
+LSystem* frameFactory::getLsystem(const string& name )
+{
+  std::map<string, LSystem*>::const_iterator pos = lsystems.find(name); 
+  if ( pos == lsystems.end() ) {
+    throw string("Couldn't find L-System")+name+string("in getLsystem");
+  }
+  else {
+    return pos->second;
+  }
+}
+
+std::vector<Frame* > frameFactory::getLsystemFrame(const std::string& name)
+{
+  std::map<string, std::vector<Frame *> >::const_iterator pos = lsysFrames.find(name); 
+  if ( pos == lsysFrames.end() ) {
+    LSystem* lsystem = new LSystem(gdata->getXmlStr(name+"SpriteFile"));
+    lsystems[name] = lsystem;
+    SDL_Surface * const surface = lsystem->getSurface();
+    bool transparency = gdata->getXmlBool(name+"SpriteTransparency");
+    if ( transparency ) {
+      // We need to make the L-System surface transparent for Magenta:
+      Uint32 colorkey = SDL_MapRGB(surface->format, 255, 0, 255);
+      // Note that we're violating const with a C function:
+      SDL_SetColorKey(surface, SDL_SRCCOLORKEY|SDL_RLEACCEL, colorkey);
+    }
+
+    surfaceMap[name] = surface;
+    std::vector<Frame *> frame;
+    frame.push_back(new Frame(surface,
+                gdata->getXmlInt(name+"SpriteWidth"), 
+                gdata->getXmlInt(name+"SpriteHeight"), 
+                gdata->getXmlInt(name+"SpritesrcX"), 
+                gdata->getXmlInt(name+"SpritesrcY")));
+    lsysFrames[name] = frame;
+    return frame;
+  }
+  else {
+    return pos->second;
+  }
+}
+
+
+

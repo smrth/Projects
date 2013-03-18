@@ -1,0 +1,16 @@
+#include "bullet.h"
+#include "SDL.h"
+
+
+int Bullet::calulateDistance()
+{
+ //std::cout<<getTime()<<"\t"<<SDL_GetTicks()<<std::endl;
+ return ((SDL_GetTicks()-getTime()));
+}
+
+
+void Bullet::setOrgin(Uint32 t)
+{
+  orginTime=t;
+}
+
