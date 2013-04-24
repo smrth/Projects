@@ -1,3 +1,5 @@
+#By starting at the top of the triangle and moving to adjacent numbers on the row below, find the maximum total from top to bottom 
+
 import sys
 
 f = open(sys.argv[1],'r')
